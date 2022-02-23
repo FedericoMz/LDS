@@ -1,5 +1,0 @@
-TRUNCATE TABLE [Group_22_DB].[Group_22].[Date]
-TRUNCATE TABLE [Group_22_DB].[Group_22].[Tournament]
-TRUNCATE TABLE [Group_22_DB].[Group_22].[Player]
-TRUNCATE TABLE [Group_22_DB].[Group_22].[Match]
-TRUNCATE TABLE [Group_22_DB].[Group_22].[Geography]

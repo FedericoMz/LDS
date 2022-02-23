@@ -1,0 +1,15 @@
+with member continent_rank as
+([Loser].[ContinentCountry].currentmember.parent, [Measures].[Loser Rank Points])
+
+member ratio as
+[Measures].[Loser Rank Points]/continent_rank,
+format_string = 'percent'
+
+set namedContinent AS
+FILTER([Loser].[ContinentCountry].children, [Loser].[ContinentCountry].currentmember.MEMBERVALUE <> '')
+
+select {[Measures].[Loser Rank Points], ratio, continent_rank} on columns,
+nonempty(filter(([Tournament].[YQMDD].[Year], namedContinent,
+[Loser].[Player Id].[Player Id]), ratio > 0.1)) on rows
+
+from [Group 22 DB]

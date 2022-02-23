@@ -1,0 +1,13 @@
+with MEMBER past as
+([Tournament].[Year].currentmember.lag(1), [Measures].[Winner Rank Points])
+
+MEMBER curr as
+[Measures].[Winner Rank Points]
+
+MEMBER perc_incr as
+iif(past = 0, "-", (curr - past)/past),
+
+format_string = "percent"
+select ([Tournament].[Year].[Year], perc_incr) on columns,
+NONEMPTY(([Winner].[Player Id].[Player Id])) on rows
+from [Group 22 DB]

@@ -1,0 +1,13 @@
+with MEMBER country_rank as
+([Winner].[ContinentCountry].currentmember, [Measures].[Winner Rank Points])
+
+MEMBER continent_rank as
+([Winner].[ContinentCountry].currentmember.parent, [Measures].[Winner Rank Points])
+
+MEMBER country_perc as
+iif(country_rank = null, 0, country_rank / continent_rank),
+format_string = "percent"
+
+select (country_perc) on columns,
+filter(([Winner].[Continent].[Continent], [Winner].[ContinentCountry].[Country Ioc]), [Winner].[ContinentCountry].parent.MEMBERVALUE <> '') on rows
+from [Group 22 DB]
